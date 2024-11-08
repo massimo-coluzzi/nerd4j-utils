@@ -1,0 +1,18 @@
+# Ignore Maven target directories.
+target/
+
+# Ignore Eclipse project files.
+.project
+.settings/
+.classpath
+.checkstyle
+
+# Ignore IntelliJ project files.
+.idea/
+*.iml
+
+# Ignore Visual Studio Code project files.
+.vscode/
+
+# Ignore file system metadata
+.DS_Store

@@ -1,0 +1,144 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  
+  <parent>
+    <groupId>org.nerd4j</groupId>
+    <artifactId>nerd4j-base</artifactId>
+    <version>2.0.1-SNAPSHOT</version>
+  </parent>
+  
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>nerd4j-utils</artifactId>
+  <version>2.0.1-SNAPSHOT</version>
+
+  <packaging>jar</packaging>
+
+  <name>Nerd4j Utils</name>
+  <description>Useful utilities to handle the samey pesky code.</description>
+
+  <url>http://www.nerd4j.org/utils</url>
+
+  <inceptionYear>2011</inceptionYear>
+
+  <scm>
+    <url>https://github.com/massimo-coluzzi/nerd4j-utils.git</url>
+    <connection>scm:git:https://github.com/massimo-coluzzi/nerd4j-utils.git</connection>
+    <developerConnection>scm:git:https://github.com/massimo-coluzzi/nerd4j-utils.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+
+
+  <dependencies>
+
+    <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.6.0-M1</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <version>5.6.0-M1</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+
+    <plugins>
+
+      <!-- PLUGIN TO PERFORM TESTS WITH JUNIT5 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+      </plugin>
+
+      <!-- PLUGIN TO PERFORM TEST COVERAGE ANALYSIS -->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>**/*Failure.*</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+
+    </plugins>
+
+  </build>
+
+  <reporting>
+
+    <plugins>
+
+      <!-- PLUGIN TO GENERATE TEST COVERAGE REPORTS -->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <!-- select non-aggregate reports -->
+              <report>report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      
+    </plugins>
+
+  </reporting>
+
+  <profiles>
+    
+    <!-- PROFILE TO BE USED DURING SONATYPE RELEASES -->
+    <profile>
+
+      <id>deploy</id>
+
+      <build>
+
+        <plugins>
+
+          <!-- PLUG-IN TO ENSURE JAVADOC IS AVAILABLE IN RELEASE -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>  
+          </plugin>
+
+          <!-- PLUG-IN FOR GPG SIGNATURE INTO JAR -->
+          <!-- See: https://docs.sonatype.org/display/Repository/How+To+Generate+PGP+Signatures+With+Maven -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+          </plugin>
+
+          <!-- SONATYPE RELEASE PLUGINS -->
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+          </plugin>
+
+        </plugins>
+
+      </build>
+
+    </profile>
+
+  </profiles>
+
+</project>
